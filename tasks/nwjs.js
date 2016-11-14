@@ -9,8 +9,7 @@ var config = {
             platforms: [
                 'linux32',
                 'linux64',
-                'osx64',
-                'win32'
+                'osx64'
             ],
             version: '0.12.3',
             appVersion: null, // default to package.json version
