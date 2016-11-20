@@ -50,8 +50,12 @@ app.controller('UnhearedCtrl', function (
 
     function filterCollection(data) {
         return data.collection.filter(function (item) {
+            var createdAt = new Date(item.created_at);
+            var duration = item.duration ||
+                            item.full_duration ||
+                            0;
+            console.log("TEST " + item.title + " with " + duration + " from " + createdAt);
 
-            console.log('info', 'FILTER: ' + JSON.stringify(item, null, 4));
             // Keep only tracks (remove playlists, etc)
             var isTrackType = item.type === 'track' ||
                               item.type === 'track-repost' ||
@@ -67,14 +71,12 @@ app.controller('UnhearedCtrl', function (
             }
 
             // nothing longer than 15 minutes
-            var duration = item.duration || 0;
-            if (duration > 15*60*1000) {
+            if (duration > (15*60*1000)) {
                 return false;
             }
 
             // nothing before 8.9.2016
-            var createdAt = new Date(item.created_at);
-            if (createdAt.getTime() < new Date(2016, 9, 8, 0, 0, 0, 0)) {
+            if (createdAt.getTime() < (new Date(2016, 9, 8, 0, 0, 0, 0).getTime())) {
                 return false;
             }
 
