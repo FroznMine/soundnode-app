@@ -26,6 +26,11 @@ app.config(function (
             templateUrl: 'views/stream/stream.html',
             controller: 'StreamCtrl'
         })
+        .state('unheared', {
+            url: '/',
+            templateUrl: 'views/unheared/unheared.html',
+            controller: 'UnhearedCtrl'
+        })
         .state('charts', {
             url: '/charts/:genre',
             templateUrl: 'views/charts/charts.html',
