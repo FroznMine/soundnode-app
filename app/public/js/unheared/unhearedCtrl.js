@@ -51,7 +51,7 @@ app.controller('UnhearedCtrl', function (
     function filterCollection(data) {
         return data.collection.filter(function (item) {
 
-            console.log('info', 'FILTER: ' + item);
+            console.log('info', 'FILTER: ' + JSON.stringify(item, null, 4));
             // Keep only tracks (remove playlists, etc)
             var isTrackType = item.type === 'track' ||
                               item.type === 'track-repost' ||
