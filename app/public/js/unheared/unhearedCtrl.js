@@ -16,7 +16,7 @@ app.controller('UnhearedCtrl', function (
     SC2apiService.getStream()
         .then(filterCollection)
         .then(function (collection) {
-            $scope.data = collection;
+            $scope.data = collection.reverse();
 
         })
         .catch(function (error) {
@@ -37,7 +37,7 @@ app.controller('UnhearedCtrl', function (
         SC2apiService.getNextPage()
             .then(filterCollection)
             .then(function (collection) {
-                $scope.data = $scope.data.concat(collection);
+                $scope.data = collection.reverse().concat($scope.data);
                 utilsService.updateTracksLikes(collection, true);
                 utilsService.updateTracksReposts(collection, true);
             }, function (error) {
@@ -50,6 +50,8 @@ app.controller('UnhearedCtrl', function (
 
     function filterCollection(data) {
         return data.collection.filter(function (item) {
+
+            console.log('info', 'FILTER: ' + item);
             // Keep only tracks (remove playlists, etc)
             var isTrackType = item.type === 'track' ||
                               item.type === 'track-repost' ||
@@ -80,6 +82,7 @@ app.controller('UnhearedCtrl', function (
             item.track.stream_url = item.track.uri + '/stream';
 
             tracksIds.splice(0, 0, item.track.id);
+            console.log('info', 'PASSED');
             return true;
         });
     }
